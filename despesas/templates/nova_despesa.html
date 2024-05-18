@@ -1,5 +1,16 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h1>Ola todos</h1>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8 offset-md-2">
+        <h2 class="mb-3">Nova Despesa</h2>
+        <form method="post">
+          {% csrf_token %}
+          <table>{{ nova_despesa_form.as_table }}</table>
+          <button type="submit" class="btn btn-primary">Enviar</button>
+        </form>
+      </div>
+    </div>
+  </div>
 {% endblock %}
