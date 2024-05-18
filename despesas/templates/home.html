@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <form action="{% url 'home' %}" method="get">
+    <input type="text" name="search" placeholder="Coloque o nome" />
+    <button type="submit">Buscar</button>
+  </form>
+
+  {% for despesa in despesas %}
+    <h3>{{ despesa.name }}</h3>
+  {% endfor %}
+{% endblock %}
