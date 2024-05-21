@@ -1,25 +1,36 @@
-from django.shortcuts import redirect, render
 from despesas.forms import DespesaModelForm
-from .models import Despesa
+from .models import Despesa, Bank
+from django.views.generic import ListView, CreateView, DetailView
+from django.urls import reverse_lazy
 
 # Create your views here.
 
 
-def home_view(request):
-    despesas = Despesa.objects.all()
-    search = request.GET.get('search')
+class HomeListView(ListView):
+    model = Despesa
+    template_name = 'home.html'
+    context_object_name = 'despesas'
 
-    if search:
-        despesas = despesas.filter(name__icontains=search)
-    return render(request, 'home.html', {'despesas': despesas})
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        banco_id = self.request.GET.get('bank')
+        if banco_id:
+            queryset = queryset.filter(bank_id=banco_id)
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['bancos'] = Bank.objects.all()
+        return context
 
 
-def nova_despesa_view(request):
-    if request.method == 'POST':
-        nova_despesa_form = DespesaModelForm(request.POST)
-        if nova_despesa_form.is_valid():
-            nova_despesa_form.save()
-            return redirect('home')
-    else:
-        nova_despesa_form = DespesaModelForm()
-    return render(request, 'nova_despesa.html', {'nova_despesa_form': nova_despesa_form})
+class NovaDespesaView(CreateView):
+    model = Despesa
+    form_class = DespesaModelForm
+    template_name = 'nova_despesa.html'
+    success_url = reverse_lazy('home')
+
+
+class DetalheDespesa(DetailView):
+    model = Despesa
+    template_name = 'detalhe_despesa.html'
