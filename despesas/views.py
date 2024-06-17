@@ -1,6 +1,6 @@
 from despesas.forms import DespesaModelForm
 from .models import Despesa, Bank
-from django.views.generic import ListView, CreateView, DetailView
+from django.views.generic import ListView, CreateView, DetailView, DeleteView
 from django.urls import reverse_lazy
 
 # Create your views here.
@@ -34,3 +34,9 @@ class NovaDespesaView(CreateView):
 class DetalheDespesa(DetailView):
     model = Despesa
     template_name = 'detalhe_despesa.html'
+
+
+class DeletarDespesaView(DeleteView):
+    model = Despesa
+    template_name = 'deletar_despesa.html'
+    success_url = reverse_lazy('home')

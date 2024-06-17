@@ -35,7 +35,7 @@
                 <td class="text-center">
                   <a href="">Detalhar</a>
                   <a href="">Editar</a>
-                  <a href="">Deletar</a>
+                  <a href="{% url 'deletar_despesa' despesa.pk %}">Deletar</a>
                 </td>
               </tr>
             {% endfor %}
