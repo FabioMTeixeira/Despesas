@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  {% for despesa_mensal in despesas_mensais %}
+    <h3>{{ despesa_mensal.valor_total }}</h3>
+  {% endfor %}
+{% endblock %}

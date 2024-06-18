@@ -16,12 +16,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from despesas.views import HomeListView, NovaDespesaView, DetalheDespesa, DeletarDespesaView
+from despesas.views import HomeListView, NovaDespesaView, DetalheDespesa, DeletarDespesaView, MonthlyExpensesListView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', HomeListView.as_view(), name='home'),
     path('nova_despesa/', NovaDespesaView.as_view(), name='nova_despesa'),
+    path('despesa_mensal/', MonthlyExpensesListView.as_view(), name='despesa_mensal'),
     path('despesa/<int:pk>', DetalheDespesa.as_view(), name='detalhe_despesa'),
     path('despesa/<int:pk>/deletar/',
          DeletarDespesaView.as_view(), name='deletar_despesa'),

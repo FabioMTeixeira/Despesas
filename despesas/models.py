@@ -17,6 +17,14 @@ class Month(models.Model):
         return self.name
 
 
+class DespesaMensal(models.Model):
+    mes = models.IntegerField()
+    valor_total = models.FloatField()
+
+    class Meta:
+        unique_together = ('mes',)
+
+
 class Despesa(models.Model):
     name = models.CharField(max_length=50, blank=False, null=False)
     value = models.FloatField(blank=False, null=False)
